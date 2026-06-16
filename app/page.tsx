@@ -32,7 +32,7 @@ export default function Home() {
           alt="Hero Image"
           width={350}
           height={350}
-          className="w-[350px] h-auto rounded-lg"
+          className="w-87.5 h-auto rounded-lg"
         />
       </section>
     </main>

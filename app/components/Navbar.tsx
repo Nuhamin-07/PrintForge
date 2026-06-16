@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import PFLogoIcon from "@/public/printforge-logo-icon.svg";
+import NavLink from "@/app/components/NavLink";
 import PFLogo from "@/public/printforge-logo.svg";
 
 export default function Navbar() {
@@ -13,7 +14,7 @@ export default function Navbar() {
             <Image
               src={PFLogo.src}
               alt="PrintForge Logo"
-              className="w-[200px] h-auto hidden md:block"
+              className="w-50 h-auto hidden md:block"
               width={200}
               height={50}
             />
@@ -21,7 +22,7 @@ export default function Navbar() {
             <Image
               src={PFLogoIcon.src}
               alt="PrintForge Logo"
-              className="w-[40px] h-auto block md:hidden"
+              className="w-10 h-auto block md:hidden"
               width={40}
               height={40}
             />
@@ -29,10 +30,10 @@ export default function Navbar() {
         </Link>
         <ul className="flex items-center gap-2.5">
           <li className="text-sm uppercase cursor-pointer">
-            <Link href="/3d-models">3D Models</Link>
+            <NavLink href="/3d-models">3D Models</NavLink>
           </li>
           <li className="text-sm uppercase cursor-pointer">
-            <Link href="/about">About</Link>
+            <NavLink href="/about">About</NavLink>
           </li>
         </ul>
       </nav>
