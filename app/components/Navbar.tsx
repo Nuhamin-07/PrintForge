@@ -35,7 +35,10 @@ export default function Navbar() {
         </Link>
         <ul className="flex items-center gap-2.5">
           <li className="text-sm uppercase cursor-pointer">
-            <NavLink href="/3d-models" isActive={pathname === "/3d-models"}>
+            <NavLink
+              href="/3d-models"
+              isActive={pathname.startsWith("/3d-models")}
+            >
               3D Models
             </NavLink>
           </li>
