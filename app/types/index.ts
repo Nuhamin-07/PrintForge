@@ -52,6 +52,12 @@ export type ModelsGridProps = {
   models: Model[];
 };
 
+export type ModelsPageProps = {
+  searchParams: {
+    query?: string;
+  };
+};
+
 export type PillProps = {
   children: ReactNode;
   className?: string;
