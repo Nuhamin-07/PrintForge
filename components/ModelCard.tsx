@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa6";
 import Pill from "./Pill";
-import { ModelCardProps } from "@/app/types";
+import { ModelCardProps } from "@/types";
 import placeholderImg from "@/public/placeholder.png";
 
 export default function ModelCard({ model }: ModelCardProps) {
@@ -18,7 +18,7 @@ export default function ModelCard({ model }: ModelCardProps) {
       >
         <div className="relative aspect-square">
           <Image
-            src={placeholderImg.src}
+            src={model.image}
             alt={model.name}
             className="absolute inset-0 object-cover w-full h-full"
             width={500}

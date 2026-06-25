@@ -1,12 +1,12 @@
-import ModelsGrid from "@/app/components/ModelsGrid";
-import { getCategoryBySlug } from "@/lib/categories";
-import { getModels } from "@/lib/models";
-import type { CategoryPageProps } from "@/app/types";
+// import ModelsGrid from "@/components/ModelsGrid";
+// import { getCategoryBySlug } from "@/lib/categories";
+// import { getModels } from "@/lib/models";
+// import type { CategoryPageProps } from "@/types";
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { categoryName } = await params;
-  const category = getCategoryBySlug(categoryName);
-  const models = await getModels({ category: categoryName });
+// export default async function CategoryPage({ params }: CategoryPageProps) {
+//   const { categoryName } = await params;
+//   const category = getCategoryBySlug(categoryName);
+//   const models = await getModels({ category: categoryName });
 
-  return <ModelsGrid title={category.displayName} models={models} />;
-}
+//   return <ModelsGrid title={category.displayName} models={models} />;
+// }

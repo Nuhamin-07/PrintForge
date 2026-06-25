@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import PFLogoIcon from "@/public/printforge-logo-icon.svg";
-import NavLink from "@/app/components/NavLink";
+import NavLink from "@/components/NavLink";
 import PFLogo from "@/public/printforge-logo.svg";
 import { usePathname } from "next/navigation";
 

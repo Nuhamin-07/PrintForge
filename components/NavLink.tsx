@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { NavLinkProps } from "@/app/types";
+import type { NavLinkProps } from "@/types";
 
 export default function NavLink({ href, children, isActive }: NavLinkProps) {
   return (
