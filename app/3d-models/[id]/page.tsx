@@ -2,7 +2,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import Image from "next/image";
 import Pill from "@/app/components/Pill";
 import type { ModelDetailPageProps } from "@/app/types";
-import { getModelById } from "@/app/lib/models";
+import { getModelById } from "@/lib/models";
 import placeholderImg from "@/public/placeholder.png";
 
 export default async function ModelDetailPage({

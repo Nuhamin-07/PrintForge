@@ -1,6 +1,6 @@
 import ModelsGrid from "@/app/components/ModelsGrid";
 import type { ModelsPageProps, Model } from "@/app/types";
-import { getModels } from "@/app/lib/models";
+import { getModels } from "@/lib/models";
 
 export default async function Page({ searchParams }: ModelsPageProps) {
   const { query } = await searchParams;
