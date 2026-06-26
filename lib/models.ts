@@ -1,9 +1,15 @@
 import { getDBConnection } from "@/lib/db";
 
-export async function getModels() {
+export async function getModels(search?: string) {
   const db = await getDBConnection();
 
   try {
+    if (search) {
+      return await db.all(
+        "SELECT * FROM models WHERE (name LIKE ? OR description LIKE ?)",
+        [`%${search}%`, `%${search}%`],
+      );
+    }
     return await db.all("SELECT * FROM models");
   } finally {
     await db.close();
