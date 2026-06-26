@@ -37,13 +37,16 @@ export default function Navbar() {
           <li className="text-sm uppercase cursor-pointer">
             <NavLink
               href="/3d-models"
-              isActive={pathname.startsWith("/3d-models")}
+              // isActive={pathname.startsWith("/3d-models")}
             >
               3D Models
             </NavLink>
           </li>
           <li className="text-sm uppercase cursor-pointer">
-            <NavLink href="/about" isActive={pathname === "/about"}>
+            <NavLink
+              href="/about"
+              // isActive={pathname === "/about"}
+            >
               About
             </NavLink>
           </li>

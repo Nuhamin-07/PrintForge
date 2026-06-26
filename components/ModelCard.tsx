@@ -3,7 +3,6 @@ import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa6";
 import Pill from "./Pill";
 import { ModelCardProps } from "@/types";
-import placeholderImg from "@/public/placeholder.png";
 
 export default function ModelCard({ model }: ModelCardProps) {
   return (
