@@ -9,8 +9,8 @@ export default async function Page({ searchParams }: ModelsPageProps) {
 
   return (
     <>
-      <SearchForm />
-      <ModelsGrid title="3D Models" models={models} />
+      <SearchForm search={query} />
+      <ModelsGrid title="3D Models" models={models} search={query} />
     </>
   );
 }
