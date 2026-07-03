@@ -1,11 +1,15 @@
 import ModelsGrid from "@/components/ModelsGrid";
-import type { ModelsPageProps, Model } from "@/types";
 import { getModels } from "@/lib/models";
 import SearchForm from "@/components/SearchForm";
 
-export default async function Page({ searchParams }: ModelsPageProps) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ query?: string; sort?: string }>;
+}) {
   const query = (await searchParams).query?.toLowerCase() || "";
-  const models = await getModels(query);
+  const sort = (await searchParams).sort?.toLowerCase() || "";
+  const models = await getModels(query, sort);
 
   return (
     <>

@@ -1,16 +1,30 @@
 import { getDBConnection } from "@/lib/db";
 
-export async function getModels(search?: string) {
+export async function getModels(search?: string, sort?: string) {
   const db = await getDBConnection();
 
-  try {
-    if (search) {
-      return await db.all(
-        "SELECT * FROM models WHERE (name LIKE ? OR description LIKE ?)",
-        [`%${search}%`, `%${search}%`],
-      );
+  let sql = "SELECT * FROM models";
+  const placeholders = [];
+
+  if (search) {
+    sql += " WHERE (name LIKE ? OR description LIKE ?)";
+    placeholders.push(`%${search}%`, `%${search}%`);
+  }
+
+  if (sort) {
+    if (sort === "alpha") {
+      sql += " ORDER BY name ASC";
     }
-    return await db.all("SELECT * FROM models");
+    if (sort === "popular") {
+      sql += " ORDER BY likes DESC";
+    }
+    if (sort === "recent") {
+      sql += " ORDER BY dateAdded DESC";
+    }
+  }
+
+  try {
+    return await db.all(sql, placeholders);
   } finally {
     await db.close();
   }
