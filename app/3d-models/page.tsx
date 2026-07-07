@@ -9,7 +9,7 @@ export default async function Page({
 }) {
   const query = (await searchParams).query?.toLowerCase() || "";
   const sort = (await searchParams).sort?.toLowerCase() || "";
-  const models = await getModels(query, sort);
+  const models = await getModels({ query, sort });
 
   return (
     <>
