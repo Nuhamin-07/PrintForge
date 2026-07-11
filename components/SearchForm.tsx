@@ -1,8 +1,28 @@
 import Form from "next/form";
+import { TransitionStartFunction } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-export default function SearchForm({ search }: { search?: string }) {
+export default function SearchForm({
+  search,
+  startTransition,
+}: {
+  search?: string;
+  startTransition: TransitionStartFunction;
+}) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  function handleSearch(formData: FormData) {
+    const search = formData.get("search")?.toString().trim() || "";
+    const url = search
+      ? `${pathname}?search=${encodeURIComponent(search)}`
+      : pathname;
+    startTransition(() => {
+      router.push(url);
+    });
+  }
   return (
-    <Form action="/3d-models" className="w-full px-5 md:px-0 md:max-w-xl">
+    <Form action={handleSearch} className="w-full px-5 md:px-0 md:max-w-xl">
       <input
         type="text"
         defaultValue={search}

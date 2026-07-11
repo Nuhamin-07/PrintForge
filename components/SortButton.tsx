@@ -1,13 +1,16 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { TransitionStartFunction } from "react";
 
 export default function SortButton({
   children,
   sort,
+  startTransition,
 }: {
   children: React.ReactNode;
   sort: string;
+  startTransition: TransitionStartFunction;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -19,7 +22,9 @@ export default function SortButton({
     const urlSearchParams = new URLSearchParams(searchParams.toString());
     urlSearchParams.set("sort", sort);
     const url = `${pathname}?${urlSearchParams.toString()}`;
-    router.push(url);
+    startTransition(() => {
+      router.push(url);
+    });
   }
 
   return (

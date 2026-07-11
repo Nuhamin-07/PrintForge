@@ -1,6 +1,5 @@
-import ModelsGrid from "@/components/ModelsGrid";
 import { getModels } from "@/lib/models";
-import SearchForm from "@/components/SearchForm";
+import ModelsBrowser from "@/components/ModelsBrowser";
 
 export default async function Page({
   searchParams,
@@ -11,10 +10,5 @@ export default async function Page({
   const sort = (await searchParams).sort?.toLowerCase() || "";
   const models = await getModels({ query, sort });
 
-  return (
-    <>
-      <SearchForm search={query} />
-      <ModelsGrid title="3D Models" models={models} search={query} />
-    </>
-  );
+  return <ModelsBrowser query={query} models={models} />;
 }

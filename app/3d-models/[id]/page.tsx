@@ -2,6 +2,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import Image from "next/image";
 import Pill from "@/components/Pill";
 import { getModelById } from "@/lib/models";
+import { notFound } from "next/navigation";
 
 export default async function ModelDetailPage({
   params,
@@ -10,6 +11,10 @@ export default async function ModelDetailPage({
 }) {
   const { id } = await params;
   const model = await getModelById(id);
+
+  if (!model) {
+    notFound();
+  }
 
   return (
     <div className="container max-w-6xl px-4 py-8 mx-auto">

@@ -1,5 +1,5 @@
 import LoadingUI from "@/components/LoadingUI";
 
 export default function ModelsLoading() {
-  return <LoadingUI>Loading 3D Models...</LoadingUI>;
+  return <LoadingUI>Loading category...</LoadingUI>;
 }

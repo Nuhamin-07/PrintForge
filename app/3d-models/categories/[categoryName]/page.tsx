@@ -1,6 +1,7 @@
-import ModelsGrid from "@/components/ModelsGrid";
 import { getModels } from "@/lib/models";
 import { getCategoryBySlug } from "@/lib/categories";
+import ModelsBrowser from "@/components/ModelsBrowser";
+import { notFound } from "next/navigation";
 
 export default async function CategoryPage({
   params,
@@ -17,6 +18,9 @@ export default async function CategoryPage({
     categorySlug: categoryName,
   });
   const category = await getCategoryBySlug(categoryName);
+  if (!category) {
+    notFound();
+  }
 
-  return <ModelsGrid title={category.name} models={models} />;
+  return <ModelsBrowser categoryName={category.name} models={models} />;
 }
