@@ -13,9 +13,9 @@ export default function SearchForm({
   const router = useRouter();
 
   function handleSearch(formData: FormData) {
-    const search = formData.get("search")?.toString().trim() || "";
+    const search = formData.get("query")?.toString().trim() || "";
     const url = search
-      ? `${pathname}?search=${encodeURIComponent(search)}`
+      ? `${pathname}?query=${encodeURIComponent(search)}`
       : pathname;
     startTransition(() => {
       router.push(url);

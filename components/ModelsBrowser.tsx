@@ -1,31 +1,37 @@
 "use client";
 
-import { Model } from "@/types";
-import ModelsGrid from "./ModelsGrid";
-import SearchForm from "./SearchForm";
+import SearchForm from "@/components/SearchForm";
+import ModelsGrid from "@/components/ModelsGrid";
+import type { Model } from "@/types";
 import { useTransition } from "react";
+import PaginationControlls from "@/components/PaginationControls";
 
 export default function ModelsBrowser({
-  query,
+  search,
   models,
   categoryName,
+  totalPages,
+  currentPage,
 }: {
-  query?: string;
+  search?: string;
   models: Model[];
   categoryName?: string;
+  totalPages: number;
+  currentPage: number;
 }) {
   const [isPending, startTransition] = useTransition();
 
   return (
     <div>
-      <SearchForm startTransition={startTransition} search={query} />
+      <SearchForm startTransition={startTransition} search={search} />
       <ModelsGrid
         isPending={isPending}
-        title={categoryName}
+        search={search}
         models={models}
-        search={query}
+        title={categoryName}
         startTransition={startTransition}
       />
+      <PaginationControlls totalPages={totalPages} currentPage={currentPage} />
     </div>
   );
 }

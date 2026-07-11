@@ -3,6 +3,7 @@ import type { Model } from "@/types";
 import SortControls from "@/components/SortControls";
 import LoadingUI from "@/components/LoadingUI";
 import { TransitionStartFunction } from "react";
+import NotFoundUI from "@/components/NotFoundUI";
 
 export default function ModelsGrid({
   title,
@@ -30,12 +31,19 @@ export default function ModelsGrid({
       <SortControls startTransition={startTransition} />
       {isPending ? (
         <LoadingUI>Loading models...</LoadingUI>
-      ) : (
+      ) : models.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {models.map((model: Model) => (
             <ModelCard key={model.id} model={model} />
           ))}
         </div>
+      ) : (
+        <NotFoundUI
+          title="No Models Found"
+          subtitle="Sorry, we couldn't find any models matching your criteria."
+          link_text="Go Back Home"
+          link_href="/3d-models"
+        />
       )}
     </div>
   );

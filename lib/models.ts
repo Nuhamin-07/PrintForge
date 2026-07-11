@@ -4,26 +4,32 @@ export async function getModels({
   query,
   sort,
   categorySlug,
+  page,
+  modelsPerPage,
 }: {
   query?: string;
   sort?: string;
   categorySlug?: string;
+  page: number;
+  modelsPerPage: number;
 }) {
   const db = await getDBConnection();
-
-  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   let sql = "SELECT * FROM models";
   const placeholders = [];
 
-  if (query) {
-    sql += " WHERE (name LIKE ? OR description LIKE ?)";
-    placeholders.push(`%${query}%`, `%${query}%`);
-  }
+  if (query || categorySlug) {
+    const where = [];
+    if (query) {
+      where.push("(name LIKE ? OR description LIKE ?)");
+      placeholders.push(`%${query}%`, `%${query}%`);
+    }
+    if (categorySlug) {
+      where.push("category=?");
+      placeholders.push(categorySlug);
+    }
 
-  if (categorySlug) {
-    sql += " WHERE category=?";
-    placeholders.push(categorySlug);
+    sql += " WHERE " + where.join(" AND ");
   }
 
   if (sort) {
@@ -38,6 +44,12 @@ export async function getModels({
     }
   }
 
+  if (page && modelsPerPage) {
+    const offset = (page - 1) * modelsPerPage;
+    sql += " LIMIT ? OFFSET ?";
+    placeholders.push(modelsPerPage, offset);
+  }
+
   try {
     return await db.all(sql, placeholders);
   } finally {
@@ -47,10 +59,41 @@ export async function getModels({
 export async function getModelById(id: number) {
   const db = await getDBConnection();
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   try {
     return await db.get("SELECT * FROM models WHERE id = ?", [id]);
+  } finally {
+    await db.close();
+  }
+}
+
+export async function getModelCount({
+  query,
+  categorySlug,
+}: {
+  query?: string;
+  categorySlug?: string;
+}) {
+  const db = await getDBConnection();
+
+  let sql = "SELECT COUNT(*) as count from models";
+  const placeholders = [];
+
+  if (query || categorySlug) {
+    const where = [];
+    if (query) {
+      where.push("(name LIKE ? OR description LIKE ?)");
+      placeholders.push(`%${query}%`, `%${query}%`);
+    }
+    if (categorySlug) {
+      where.push("category=?");
+      placeholders.push(categorySlug);
+    }
+
+    sql += " WHERE " + where.join(" AND ");
+  }
+  try {
+    const result = await db.get(sql, placeholders);
+    return result.count;
   } finally {
     await db.close();
   }
