@@ -25,6 +25,7 @@ export default function ModelsGrid({
   if (search) {
     pageTitle = `Search results for "${search}"`;
   }
+  if (title && search) pageTitle = `Search results for "${search}" in ${title}`;
   return (
     <div className="container px-4 py-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold">{pageTitle}</h1>

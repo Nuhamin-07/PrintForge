@@ -31,7 +31,12 @@ export default function ModelsBrowser({
         title={categoryName}
         startTransition={startTransition}
       />
-      <PaginationControlls totalPages={totalPages} currentPage={currentPage} />
+      {totalPages > 1 && (
+        <PaginationControlls
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
+      )}
     </div>
   );
 }

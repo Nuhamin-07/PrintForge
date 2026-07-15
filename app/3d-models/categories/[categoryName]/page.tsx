@@ -3,6 +3,8 @@ import { getCategoryBySlug } from "@/lib/categories";
 import ModelsBrowser from "@/components/ModelsBrowser";
 import { notFound } from "next/navigation";
 import { MODELS_PER_PAGE } from "@/lib/constants";
+import { getQueryParams } from "@/lib/utils";
+import { redirect } from "next/navigation";
 
 export default async function CategoryPage({
   params,
@@ -12,16 +14,14 @@ export default async function CategoryPage({
   searchParams: Promise<{ sort?: string; query?: string; page?: string }>;
 }) {
   const { categoryName } = await params;
-  const sort = (await searchParams)?.sort?.toLowerCase() || "";
-  const query = (await searchParams)?.query?.trim().toLowerCase() || "";
-  const page = Number((await searchParams).page) || 1;
+  const { query, sort, page } = getQueryParams(await searchParams);
 
   const models = await getModels({
     query,
-    sort,
+    sort: sort || undefined,
     categorySlug: categoryName,
     page,
-    MODELS_PER_PAGE,
+    modelsPerPage: MODELS_PER_PAGE,
   });
   const category = await getCategoryBySlug(categoryName);
   if (!category) {
@@ -29,7 +29,11 @@ export default async function CategoryPage({
   }
 
   const modelCount = await getModelCount({ query, categorySlug: categoryName });
-  const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(modelCount / MODELS_PER_PAGE));
+
+  if (page < 1 || page > totalPages || sort === null) {
+    redirect(`/3d-models/categories/${categoryName}`);
+  }
 
   return (
     <ModelsBrowser
